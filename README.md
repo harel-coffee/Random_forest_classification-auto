@@ -1,5 +1,6 @@
 # Random_forest_classification
 These scripts are used to calculate the correlation of genes to MPP prediction score. 
+
 We applied random forest algorithm in single-cell RNA-seq data to identify cell-type-specific genes by treating cells as samples, genes as features, and different cell types as different classes. We used RandomForestClassifier package from scikit-learn v0.20.2 to build random forest classifier and classified single cells into different cell types annotated in WT HSPCs. To train random forest classifier, feature selection was first performed by training a random forest classifier on all expressed genes.
 
 # step1 
@@ -9,7 +10,9 @@ python random_forest_feature_selection.py -i reference_single_cell_expression_ma
 feature_importance.txt
 ```
 -i single cell expression matrix with rows as cells and columns as genes 
+
 -g gene list with each gene in a row. Gene order is the same as the column order in single cell expression matrix
+
 -c cell clusters lable by numbers with each number in a each row. The order is the same as row order in single cell expression matrix. 
 ```
 | PCR_II_Forward_Primer_A | FZ_Sample1 | AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATCTtAAGTAGAGtcttgtggaaaggacgaaacaccg | TAAGTAGAGTCTTGT|
