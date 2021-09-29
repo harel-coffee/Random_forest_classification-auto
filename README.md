@@ -23,3 +23,15 @@ To identify MPP-specific genes in query samples, we predicted the probabilities 
 ```
 python Genes_correalted_with_MPP.py -i reference_single_cell_expression_matrix.txt -i2 qurey_sample_single_cell_gene_expression_matrix.txt -g reference_sample_gene_id.txt -g2 query_sample_gene_id.txt -c cluster_labels.txt 
 ```
+-i single cell expression matrix for reference sample with rows as cells and columns as genes 
+
+-i2 single cell expression matrix for query sample with rows as cells and columns as genes 
+
+-g gene index of 1000 most important genes in reference sample with each index in a row
+
+-g2 gene index of 1000 most important genes in query sample with each index in a row
+
+-c clusters for cells in reference sample (same as the input in step1)
+
+Output will be stored in the file of "Gene_correlation_with_MPP.txt" with each row as correlation cofficiency of each gene with MPP prediction score.  
+
