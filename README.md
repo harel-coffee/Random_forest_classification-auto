@@ -13,7 +13,7 @@ feature_importance.txt
 
 -g gene list with each gene in a row. Gene order is the same as the column order in single cell expression matrix
 
--c cell clusters lable by numbers with each number in a each row. The order is the same as row order in single cell expression matrix. 
+-c cell clusters lable represented by numbers with each number in a row. The order is the same as row order in single cell expression matrix. 
 ```
 | PCR_II_Forward_Primer_A | FZ_Sample1 | AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATCTtAAGTAGAGtcttgtggaaaggacgaaacaccg | TAAGTAGAGTCTTGT|
 | PCR_II_Forward_Primer_B | FZ_Sample2 | AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATCTatACACGATCtcttgtggaaaggacgaaacaccg|ATACACGATCTCTTG|
