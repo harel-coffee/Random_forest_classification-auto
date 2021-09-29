@@ -14,44 +14,12 @@ feature_importance.txt
 -g gene list with each gene in a row. Gene order is the same as the column order in single cell expression matrix
 
 -c cell clusters lable represented by numbers with each number in a row. The order is the same as row order in single cell expression matrix. 
-```
-| PCR_II_Forward_Primer_A | FZ_Sample1 | AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATCTtAAGTAGAGtcttgtggaaaggacgaaacaccg | TAAGTAGAGTCTTGT|
-| PCR_II_Forward_Primer_B | FZ_Sample2 | AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATCTatACACGATCtcttgtggaaaggacgaaacaccg|ATACACGATCTCTTG|
-| PCR_II_Forward_Primer_C | FZ_Sample3 | AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATCTgatCGCGCGGTtcttgtggaaaggacgaaacaccg|GATCGCGCGGTTCTT
-```
-The output file demultiplexed fastq files, like FZ_Sample1_sgRNA.fastq,FZ_Sample2_sgRNA.fastq .....
 
-There are some barcode or primer sequences in the original fastq files. So we first need to extract sgRNA fastq sequences using the following commands. We used multiprocessing to increase the processing speed. 
+The output file feature_importance.txt contains two columns. The first column is gene name and the second column is importance score.  1,000 most informative genes based on overall gene importance were selected for the next step.
+
+# step2
+To identify MPP-specific genes in query samples, we predicted the probabilities of each cell in MPP using the trained random forest classifier. We then calculated the correlation for each gene with MPP probabilities. Genes with high correlation to MPP prediction score were identified as MPP preferentially expressed genes.   
+
 ```
-python Genes_correalted_with_MPP.py -i ../../T0_combine/Random_forest_classifier/T0_com
-bine_normalized_matrix_full_gene.txt -i2 ../../D_34_Kit_G12D_E2KO_T2/34_G12D_E2KO_T2_normalized_matrix_full_gene.txt -g training
-_gene_ix_for_927_important_features.txt -g2 predicting_gene_ix.txt -c ../../T0_combine/Random_forest_classifier/reannotation_fil
-es/cluster_labels.txt
-```
-The library.txt contains sgRNA sequences. Here are a few lines of library.txt file:
-```
-sgRNA Sequence
-AAATCCGGGGATGGATTGAG
-CTGTGCGCTGGACCAGTGCG
-GCAGAGTGCAGCTGGTACAC
-AGTGCCGCTCAATCCATCCC
-CCAGCGCACAGGATATAGCT
-GGATTCTGGCTGGCTAGAGC
-GTCCAATAGCAGAGTGCAG
-```
-The following command is used to generate raw and normalized counts of sgRNAs. 
-```
-python sgRNA_count.py -b annotation_table.txt -f sgRNA.fastq > sgRNA_count.txt
-```
-The are three columns in input annotation_table.txt file. The first colum is sgRNA sequence. The sescond column is description (you can put "NA" if no decription needed). And the third column is sgRNA id. Here are a few lines of the annotation table file:
-```
-| CAAGTTCCTGATTTTATCGA | NA | SPil_1 |
-| GCCCCCTCCCTTGACATTGC | NA | SPil_1 |
-| ACGGTCGTGGGTCAGACGCA | NA | SPil_1 |
-```
-There are four columns in the output sgRNA_count.txt file. The first colum is sgRNA sequence. The second column is sgRNA id. The third column is sgRNA raw counts. And the fourth column is normalized sgRNA counts (normalized by total counts). Here are a few lines of output count file.
-```
-| CAAGTTCCTGATTTTATCGA | SPil_1 | raw count | normalized count|
-| GCCCCCTCCCTTGACATTGC | SPil_1 | raw count | normalized count|
-| ACGGTCGTGGGTCAGACGCA | SPil_1 | raw count | normalized count|
+python Genes_correalted_with_MPP.py -i reference_single_cell_expression_matrix.txt -i2 qurey_sample_single_cell_gene_expression_matrix.txt -g reference_sample_gene_id.txt -g2 query_sample_gene_id.txt -c cluster_labels.txt 
 ```
