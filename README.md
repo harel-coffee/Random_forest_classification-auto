@@ -1,12 +1,16 @@
 # Random_forest_classification
 These scripts are used to calculate the correlation of genes to MPP prediction score. 
+We applied random forest algorithm in single-cell RNA-seq data to identify cell-type-specific genes by treating cells as samples, genes as features, and different cell types as different classes. We used RandomForestClassifier package from scikit-learn v0.20.2 to build random forest classifier and classified single cells into different cell types annotated in WT HSPCs. To train random forest classifier, feature selection was first performed by training a random forest classifier on all expressed genes.
 
-# Example Usage
-Demultiplex different samples using forward primers.
+# step1 
+selected the 1,000 most informative genes based on overall gene importance in the classifier to train random forest classifier
 ```
-python sgRNA_screen_fastq_extract.py -b sample_library_barcode_same_length.txt -f FaithZhang_GeCKO_Run388_S1_R1_001.fastq
+python random_forest_feature_selection.py -i reference_single_cell_expression_matrix.txt -g genelist.txt -c cluster_labels.txt > 
+feature_importance.txt
 ```
-The are four columns in input sample_library_barcode_same_length.txt file. The first colum is sample ID. The sescond column is sample name and the output file will be sample_name_gRNA.fastq. The third column is vector sequence with primer and sgRNA sequences included. The forth column is forward primer sequences with 15bp. Here are a few lines of the annotation table file:
+-i single cell expression matrix with rows as cells and columns as genes 
+-g gene list with each gene in a row. Gene order is the same as the column order in single cell expression matrix
+-c cell clusters lable by numbers with each number in a each row. The order is the same as row order in single cell expression matrix. 
 ```
 | PCR_II_Forward_Primer_A | FZ_Sample1 | AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATCTtAAGTAGAGtcttgtggaaaggacgaaacaccg | TAAGTAGAGTCTTGT|
 | PCR_II_Forward_Primer_B | FZ_Sample2 | AATGATACGGCGACCACCGAGATCTACACTCTTTCCCTACACGACGCTCTTCCGATCTatACACGATCtcttgtggaaaggacgaaacaccg|ATACACGATCTCTTG|
