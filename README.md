@@ -33,5 +33,5 @@ python Genes_correalted_with_MPP.py -i reference_single_cell_expression_matrix.t
 
 -c clusters for cells in reference sample (same as the input in step1)
 
-Output will be stored in the file of "Gene_correlation_with_MPP.txt" with each row as correlation cofficiency of each gene with MPP prediction score.  
+Output will be stored in the file of "Gene_correlation_with_MPP.txt" with each row as correlation cofficiency of each gene with MPP prediction score.  The gene order are the same as gene order in query sample single cell expression matrix. 
 
